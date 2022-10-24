@@ -4,9 +4,14 @@ import { Routes, Route, Link} from 'react-router-dom';
 import Home from './page/Home';
 import About from './page/About';
 import Test from './page/Test';
-
+import KoreanPage from './page/KoreanPage';
+import NonFound from './page/NonFound';
+import Number from './page/Number';
+import {useState} from 'react'
 
 function App() {
+  const [list, setList] = useState([1,2,3,4,5]);
+
   return (
     <div className="App">
       <h1>리액트라우터를 사용하게 된 것을 환영합니다</h1>
@@ -16,6 +21,15 @@ function App() {
         {/**  a태그도 가능하지만 새로고침이 일어남으로 데이터가 리셋된다*/}
         <a href='/about'>about-a tag</a> |
         <Link to='/test'>test</Link>
+        <br /> 
+        <Link to='/number/1'>1</Link> | {" "}
+        <Link to='/number/2'>2</Link>
+        <br />
+        {
+          list.map((item)=>(
+            <Link to={"/number/"+item} >{item}</Link>
+          ))
+        }
       </div>
         {/** 
          * 주소마다 하나의 화면의 가지게됨 :
@@ -28,7 +42,21 @@ function App() {
           {/** Route 를 통해서 test입니다를 출력하는 Test페이지를 만들고 
            *  Link를 통해서 들어갈 수 있도록 작성해주세요
            *  */}
-          <Route path='test' element={<Test />} />
+          <Route path='test' element={<Test />}>
+            {/** <Route path='ko' element={<KoreanPage />}></Route>*/}
+          </Route>
+          {/** 여러 주소로 하나에 컴포넌트에 연결가능, 원하는 주소작성가능 */}
+          <Route path='test/ko' element={<KoreanPage />}/>
+          <Route path='test/es' element={<KoreanPage />}/>
+          <Route path='test/fr' element={<KoreanPage />}/>
+          {/** 지정한 주소 이외에 들어갔을때 *을 통해 모든 주소접근을 확인할수 있다 */}
+          {/** 존재하는 페이지가 없다고 알려주는데 사용 */}
+          <Route path="*" element={<NonFound />}/>
+          
+          {/** :id는 변수이름 id를 갖는 값을 주소를 통해 전달할수 있다 */}
+          {/** id 위치에 값을 적어주면 그 값이 id:값 과 같은 형태로 params에 전달 */}
+          <Route path='number/:id' element={<Number />} />
+
         </Routes>
     </div>
   );
