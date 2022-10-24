@@ -7,7 +7,11 @@ import Test from './page/Test';
 import KoreanPage from './page/KoreanPage';
 import NonFound from './page/NonFound';
 import Number from './page/Number';
+import NumberId from "./page/NumberId";
+import Board from './page/Board';
+import BoardId from './page/BoardId';
 import {useState} from 'react'
+
 
 function App() {
   const [list, setList] = useState([1,2,3,4,5]);
@@ -55,7 +59,18 @@ function App() {
           
           {/** :id는 변수이름 id를 갖는 값을 주소를 통해 전달할수 있다 */}
           {/** id 위치에 값을 적어주면 그 값이 id:값 과 같은 형태로 params에 전달 */}
-          <Route path='number/:id' element={<Number />} />
+          <Route path='number' element={<Number />} >
+            {/** Outlet을 통해 그 공간에 NumberId를 출력한다 */}
+            {/** 중첩 : 페이지 안에 바뀌는 페이지가 있는것 */}
+            <Route path=':id' element={<NumberId />}/>
+          </Route>
+          {/** Board페이지를 만들어서 BoardId페이지에 params값을 출력하세요 
+             * Board 페이지에는 /board/1 과 같이 1~10까지 로 접근할수 있는 Link있음
+             * BoardId 페이지에는 params을 가져와서 출력
+          */}
+          <Route path='board' element={<Board />}>
+            <Route path=':id' element={<BoardId />}/>
+          </Route>
 
         </Routes>
     </div>
