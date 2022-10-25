@@ -6,7 +6,7 @@ import Writeform from './page/Wirteform';
 import BoardList from './page/BoardList';
 import BoardContext from './page/BoardContext';
 import { useState } from 'react';
-import { StateContext } from './context/ContextComp';
+import { SetContext, StateContext } from './context/ContextComp';
 
 function App() {
   const [boardlist, setBoard] = useState( [
@@ -19,16 +19,18 @@ function App() {
     <div className="App">
       {/** 데이터를 전체적으로 관리하기 위해 Context사용 */}
       <StateContext.Provider value={boardlist}>
-      <Routes>
-        <Route path='/' element={<Layout />}>
-          {/** path='/'대신에 index사용 */}
-          <Route index element={<Home />}/>
-          <Route path='writeform' element={<Writeform />} />
-          <Route path='boardlist' element={<BoardList />} >
-            <Route path=':id' element={<BoardContext />} />
-          </Route>
-        </Route>
-      </Routes>
+        <SetContext.Provider value={setBoard} >
+          <Routes>
+            <Route path='/' element={<Layout />}>
+              {/** path='/'대신에 index사용 */}
+              <Route index element={<Home />}/>
+              <Route path='writeform' element={<Writeform />} />
+              <Route path='boardlist' element={<BoardList />} >
+                <Route path=':id' element={<BoardContext />} />
+              </Route>
+            </Route>
+          </Routes>
+        </SetContext.Provider>
       </StateContext.Provider>
     </div>
   );
