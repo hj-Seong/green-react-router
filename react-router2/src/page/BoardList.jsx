@@ -1,15 +1,20 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, Outlet } from "react-router-dom";
+import { StateContext } from "../context/ContextComp";
 
 const BoardList = () => {
-    const [boardlist, serBoard] = useState( [
-        {id:1, context : "첫번째"},
-        {id:2, context : "두번째"},
-        {id:3, context : "세번째"},
-    ] )
+    {/** 값을 가져올때, value에 객체로 들어오지않았다면 구조화할당X */}
+    const boardlist = useContext(StateContext);
     return (  
         <div>
-            { boardlist.map((item)=>(<Link to={'/board/'+item.id} key={item.id}>{item.id}</Link>))}
+            { 
+            boardlist && boardlist.map((item)=>(
+                <Link to={'/boardlist/'+item.id} key={item.id}>{item.id}</Link>))
+            }
+            {/** 아울렛을 통해 props값을 전달할수 없다 */}
+            {/** props값을 전달할때는 컴포넌트를 통해서 직접 전달
+             *  : App에있는 컴포넌트로 전달 */}
+            <Outlet />
         </div>
     );
 }
