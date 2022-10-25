@@ -8,6 +8,10 @@ const BoardList = () => {
     return (  
         <div>
             { 
+            // Ajax와 같이 비동기를 이용하여 값을 가져올때
+            // 값이 없을 때(값을 가져오는 시간) 동안 
+            // 조건문을 통해 출력하지 않거나, 로딩중이라는 UI를 띄워서 오류가 나지않게한다
+            //* 빈 데이터의 속성으로 들어가면 타입오류가 생김.
             boardlist && boardlist.map((item)=>(
                 <Link to={'/boardlist/'+item.id} key={item.id}>{item.id}</Link>))
             }

@@ -5,15 +5,24 @@ import Home from './page/Home';
 import Writeform from './page/Wirteform';
 import BoardList from './page/BoardList';
 import BoardContext from './page/BoardContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SetContext, StateContext } from './context/ContextComp';
 
 function App() {
-  const [boardlist, setBoard] = useState( [
-    {id:1, context : "첫번째"},
-    {id:2, context : "두번째"},
-    {id:3, context : "세번째"},
-  ] )
+  const [boardlist, setBoard] = useState([]);
+  // 실행하자 마자 ajax를 통해 값을 들고 올수 있다
+  useEffect(()=>{
+    // Fetch를 사용한 ajax
+    async function getData(){
+      // response로 값을 받아오는 시간이 걸림
+      //  > 데이터가 없는동안에 어떻게 표현할지 작성필요
+      const response = await fetch('boardlistdata.json');
+      const data = await response.json();
+      console.log(data);
+      setBoard(data.boardlist)
+    }
+    getData();
+  },[]);
 
   return (
     <div className="App">
