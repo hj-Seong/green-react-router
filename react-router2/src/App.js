@@ -29,7 +29,7 @@ function App() {
       {/** 데이터를 전체적으로 관리하기 위해 Context사용 */}
       <StateContext.Provider value={boardlist}>
         <SetContext.Provider value={setBoard} >
-          <Routes>
+          <Routes> 
             <Route path='/' element={<Layout />}>
               {/** path='/'대신에 index사용 */}
               <Route index element={<Home />}/>
