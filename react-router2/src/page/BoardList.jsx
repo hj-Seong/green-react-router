@@ -15,6 +15,7 @@ const BoardList = () => {
             boardlist && boardlist.map((item)=>(
                 <Link to={'/boardlist/'+item.id} key={item.id}>{item.id}</Link>))
             }
+            
             {/** 아울렛을 통해 props값을 전달할수 없다 */}
             {/** props값을 전달할때는 컴포넌트를 통해서 직접 전달
              *  : App에있는 컴포넌트로 전달 */}
